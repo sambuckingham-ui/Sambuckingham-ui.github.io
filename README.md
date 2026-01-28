@@ -1,1 +1,456 @@
-# Sambuckingham-ui.github.io
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b10" />
+  <title>Mrs. Buckingham — Be My Valentine?</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0b10;
+      --card:#12121b;
+      --card2:#0f0f17;
+      --pink:#ff4da6;
+      --hotpink:#ff2d95;
+      --soft:#ffd1e8;
+      --text:#f3f3f7;
+      --muted:#c9c9d4;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --ring: 0 0 0 2px rgba(255,77,166,.35), 0 0 40px rgba(255,77,166,.15);
+      --radius: 20px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 70% -10%, rgba(255,77,166,.18), transparent 55%),
+        radial-gradient(900px 500px at 20% 10%, rgba(255,45,149,.10), transparent 60%),
+        radial-gradient(900px 500px at 50% 110%, rgba(255,77,166,.10), transparent 60%),
+        linear-gradient(180deg, #07070c 0%, var(--bg) 55%, #07070c 100%);
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      overflow-x:hidden;
+    }
+
+    /* subtle gothic lace pattern */
+    .lace {
+      position:fixed; inset:-60px;
+      pointer-events:none;
+      opacity:.10;
+      filter: blur(.2px);
+      background-image:
+        radial-gradient(circle at 12px 12px, rgba(255,77,166,.35) 2px, transparent 3px),
+        radial-gradient(circle at 36px 36px, rgba(255,77,166,.25) 2px, transparent 3px);
+      background-size: 48px 48px;
+      transform: rotate(-7deg);
+      mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,.9), transparent 70%);
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 22px 16px 30px;
+    }
+
+    .card{
+      width:min(700px, 100%);
+      background: linear-gradient(180deg, rgba(18,18,27,.92), rgba(12,12,18,.90));
+      border: 1px solid rgba(255,77,166,.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 18px 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(255,77,166,.10);
+      border: 1px solid rgba(255,77,166,.20);
+      box-shadow: 0 0 0 1px rgba(255,77,166,.05) inset;
+      color: var(--soft);
+      font-size: 12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .badge .dot{
+      width:8px;height:8px;border-radius:99px;
+      background: var(--pink);
+      box-shadow: 0 0 18px rgba(255,77,166,.7);
+    }
+
+    .content{
+      padding: 24px 28px 18px;
+    }
+
+    @media (max-width: 600px){
+      .content{ padding: 20px 18px 16px; }
+      .topbar{ padding-top: 14px; }
+    }
+
+    h1{
+      font-family: Cinzel, Georgia, "Times New Roman", serif;
+      margin: 14px 0 14px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height:1.1;
+      letter-spacing:.02em;
+      text-align: center;
+    }
+
+    .sub{
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.6;
+      text-align: center;
+    }
+
+    .sub strong {
+      color: var(--soft);
+    }
+
+    .quote{
+      margin: 20px 0 24px;
+      padding: 18px 20px;
+      border-left: 3px solid rgba(255,77,166,.75);
+      background: rgba(255,77,166,.07);
+      border-radius: 14px;
+      color: #f6f0f4;
+    }
+    .quote p{
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+    .quote strong{ color: var(--soft); }
+
+    .ask{
+      text-align: center;
+      margin: 24px 0 20px;
+      font-size: 17px;
+      color: var(--text);
+    }
+    .ask strong{
+      color: var(--pink);
+    }
+
+    .buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,77,166,.28);
+      background: rgba(255,77,166,.10);
+      color: var(--text);
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing:.02em;
+      cursor:pointer;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+      box-shadow: 0 0 0 1px rgba(255,77,166,.06) inset;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(255,77,166,.95), rgba(255,45,149,.85));
+      border-color: rgba(255,77,166,.65);
+      color: #120914;
+      box-shadow: 0 10px 30px rgba(255,77,166,.22);
+    }
+    .btn.primary:hover{ filter: brightness(1.05); }
+    .btn:hover{ background: rgba(255,77,166,.14); border-color: rgba(255,77,166,.42); }
+    .btn:focus{ outline:none; box-shadow: var(--ring); }
+
+    .footer{
+      padding: 16px 24px 20px;
+      color: rgba(201,201,212,.85);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      border-top: 1px solid rgba(255,77,166,.08);
+      margin-top: 8px;
+    }
+
+    .sig{
+      font-family: Cinzel, Georgia, "Times New Roman", serif;
+      letter-spacing:.05em;
+      color: rgba(255,209,232,.95);
+    }
+
+    /* decorative hearts */
+    .heart-decoration {
+      text-align: center;
+      font-size: 28px;
+      margin: 8px 0 16px;
+      opacity: 0.8;
+    }
+
+    /* modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(5,5,8,.78);
+      backdrop-filter: blur(8px);
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal.show{ display:grid; }
+    .modalCard{
+      width:min(560px, 100%);
+      background: linear-gradient(180deg, rgba(18,18,27,.98), rgba(10,10,16,.96));
+      border: 1px solid rgba(255,77,166,.24);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 24px 24px 20px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .modalCard h2{
+      margin: 8px 0 12px;
+      font-family: Cinzel, Georgia, serif;
+      font-size: clamp(26px, 4.5vw, 40px);
+    }
+    .modalCard p{
+      margin: 0 auto 16px;
+      color: var(--muted);
+      line-height:1.6;
+      max-width: 48ch;
+    }
+    .plan{
+      margin: 16px auto 20px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,77,166,.08);
+      border: 1px solid rgba(255,77,166,.18);
+      color: #f6f0f4;
+      max-width: 48ch;
+      text-align:left;
+    }
+    .plan strong{ color: var(--soft); }
+    .plan div { margin: 6px 0; }
+
+    /* hearts confetti canvas */
+    #confetti{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index: 60;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .btn{ transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="lace" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="card" role="region" aria-label="Valentine page">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span></div>
+        <div class="badge">For: <span style="letter-spacing:.02em;text-transform:none;color:var(--soft);margin-left:4px;">Mrs. Buckingham</span></div>
+      </div>
+
+      <div class="content">
+        <div class="heart-decoration">🖤 💗 🖤</div>
+
+        <h1>Mrs. Buckingham,<br>will you be my Valentine?</h1>
+
+        <p class="sub">
+          From <strong>Mr. Buckingham</strong> — the one who still can't believe he gets to call you his.
+        </p>
+
+        <div class="quote">
+          <p>🖤 <strong>I love how you're there for me through everything</strong> — you're my safe place and my best teammate, no matter what life throws at us.</p>
+          <p>💗 <strong>I love that you're an amazing mom to our children</strong> — patient, fierce, and somehow making chaos feel like home.</p>
+          <p>🖤 <strong>I love that you're always honest and real</strong> — no pretending, just you. That's one of the reasons I trust you with my whole life.</p>
+        </div>
+
+        <p class="ask">
+          So... one more time, and always:<br>
+          <strong>Be my Valentine?</strong>
+        </p>
+
+        <div class="buttons">
+          <button class="btn primary" id="yesBtn">Yes 💗</button>
+          <button class="btn" id="alsoYesBtn">Absolutely Yes 🖤</button>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>🖤 + 💗</div>
+        <div class="sig">— Mr. Buckingham</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- "YES" modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Valentine accepted">
+    <div class="modalCard">
+      <h2>Yay! It's a date. 💗</h2>
+      <p>
+        You're my favorite person — and I'm still choosing you, every single day.
+      </p>
+
+      <div class="plan">
+        <div><strong>The nights plan:</strong></div>
+        <div>🖤 A quiet night at home, just us</div>
+        <div>💗 I'll cook dinner for you</div>
+        <div>🖤 Then we cuddle up together</div>
+      </div>
+
+      <button class="btn primary" id="closeBtn">Okay, Valentine 🖤</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Modal + Confetti ----------
+    const modal = document.getElementById('modal');
+    const yesBtn = document.getElementById('yesBtn');
+    const alsoYesBtn = document.getElementById('alsoYesBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openModal(){
+      modal.classList.add('show');
+      startHeartConfetti();
+    }
+    function closeModal(){
+      modal.classList.remove('show');
+    }
+
+    yesBtn.addEventListener('click', openModal);
+    alsoYesBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    // ---------- Heart confetti (canvas) ----------
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+
+    function resize(){
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    let particles = [];
+    let animId = null;
+    let endAt = 0;
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function heartPath(x, y, s){
+      ctx.beginPath();
+      const topCurveHeight = s * 0.3;
+      ctx.moveTo(x, y + topCurveHeight);
+      ctx.bezierCurveTo(x, y, x - s/2, y, x - s/2, y + topCurveHeight);
+      ctx.bezierCurveTo(x - s/2, y + (s + topCurveHeight)/2, x, y + (s + topCurveHeight)/1.2, x, y + s);
+      ctx.bezierCurveTo(x, y + (s + topCurveHeight)/1.2, x + s/2, y + (s + topCurveHeight)/2, x + s/2, y + topCurveHeight);
+      ctx.bezierCurveTo(x + s/2, y, x, y, x, y + topCurveHeight);
+      ctx.closePath();
+    }
+
+    function spawnHearts(count){
+      for(let i=0;i<count;i++){
+        particles.push({
+          x: rand(0, window.innerWidth),
+          y: rand(window.innerHeight * 0.2, window.innerHeight),
+          vy: rand(-5.5, -2.5),
+          vx: rand(-1.5, 1.5),
+          rot: rand(0, Math.PI*2),
+          vr: rand(-0.07, 0.07),
+          size: rand(12, 22),
+          alpha: rand(0.7, 1),
+          life: rand(80, 140),
+          color: Math.random() < 0.5 ? "#ff4da6" : (Math.random() < 0.5 ? "#ffd1e8" : "#1a1a1a")
+        });
+      }
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.vy += 0.045; // gravity
+        p.life -= 1;
+        p.alpha *= 0.993;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle = p.color;
+        heartPath(0, 0, p.size);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      particles = particles.filter(p => p.life > 0 && p.alpha > 0.05 && p.y < window.innerHeight + 80);
+
+      const now = Date.now();
+      if(now < endAt){
+        if(Math.random() < 0.7) spawnHearts(8);
+        animId = requestAnimationFrame(tick);
+      } else {
+        if(particles.length > 0){
+          animId = requestAnimationFrame(tick);
+        } else {
+          cancelAnimationFrame(animId);
+          animId = null;
+          ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+        }
+      }
+    }
+
+    function startHeartConfetti(){
+      endAt = Date.now() + 2800;
+      spawnHearts(80);
+      if(!animId) tick();
+    }
+  </script>
+</body>
+</html>
